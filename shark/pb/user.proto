@@ -1,0 +1,9 @@
+syntax = "proto2";
+package pb;
+
+message User{
+  optional int64 uid = 1; // 用户ID
+  optional string nick = 2; // 用户昵称
+  optional string intro = 3; // 用户介绍
+  optional string address = 4; // 地址
+}
