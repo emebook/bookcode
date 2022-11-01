@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"github.com/garyburd/redigo/redis"
+	"shark/hashstore"
 	"shark/jsonstore"
 	"shark/model"
 	"shark/zipstore"
@@ -52,7 +53,12 @@ func main() {
 		redisUser *model.User
 	)
 
-	// 通过使用两种不同的方式, 观察redis内存的变化
+	// 通过使用三种不同的方式, 观察redis内存的变化
+
+	// hash处理方式
+	hashstore.WriteRedis(redisConn, user)
+	redisUser = hashstore.ReadRedis(redisConn, user.Uid)
+	fmt.Printf("%d : name=%s , address=%s , intro.length=%d\n", redisUser.Uid, redisUser.Nick, redisUser.Address, len([]rune(redisUser.Intro)))
 
 	// JSON处理方式
 	jsonstore.WriteRedis(redisConn, user)
